@@ -159,7 +159,7 @@ skills/design-spec/
     └── validate_report.py      Check evidence and annotation links
 ```
 
-The annotation helper needs `Pillow>=10.4`. The skill tells the agent to use existing native annotation tools when appropriate. The probe does not read cookies, storage or form values.
+The annotation helper needs `Pillow>=10.4`. If needed and permitted by the host, the agent provisions an isolated environment inside the audit work directory; no global Python changes are required. The skill tells the agent to use existing native annotation tools when appropriate. The probe does not read cookies, storage or form values.
 
 ## Development
 

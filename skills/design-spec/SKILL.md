@@ -11,7 +11,7 @@ metadata:
 
 Turn an accessible website into an evidence-backed visual specification: **what is there, what it is actually called, where it is, how it looks, and how it moves**.
 
-Runtime: a vision-capable agent with browser or computer-use tools. DOM/CSS access improves measurement. Python 3.10+ and Pillow>=10.4 support the bundled helpers; native annotation tools are also supported.
+Runtime: a vision-capable agent with browser or computer-use tools. DOM/CSS access improves measurement. Python 3.10+ and Pillow>=10.4 support the bundled helpers; native annotation tools are also supported. If Pillow is missing and the host permits dependency installation, create an isolated virtual environment inside the audit work directory and install `Pillow>=10.4,<13` there using the official package registry. Use that environment's Python for both helpers. Do not modify global Python packages or stop at a missing optional dependency when an authorized local setup is available. If installation is unavailable, use a native annotation tool or report the specific limitation.
 
 ## Start directly
 
