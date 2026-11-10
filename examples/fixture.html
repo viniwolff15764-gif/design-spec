@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Design Spec · Synthetic fixture</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b0e13;color:#eef2f6;font-family:Arial,Helvetica,sans-serif}
+.shell{max-width:1120px;margin:auto;padding:34px 38px 60px}
+nav{display:flex;align-items:center;justify-content:space-between;width:720px;max-width:100%;margin:0 auto 62px;background:#141a23;border:1px solid #2b3441;border-radius:999px;padding:18px 28px}
+nav strong{font-size:14px;letter-spacing:2px}nav span{color:#a7b4c5;font-size:13px}
+.eyebrow{color:#5eead4;letter-spacing:2px;font-size:11px;font-weight:bold}h1{font-size:54px;letter-spacing:-2px;margin:16px 0}header p{color:#a7b4c5;font-size:17px;margin:0}
+.hero{display:flex;justify-content:space-between;align-items:end;margin-bottom:42px}
+.action{background:#5eead4;border:0;border-radius:999px;padding:17px 29px;color:#10201e;font-size:14px;font-weight:bold;cursor:pointer;transition:transform 240ms ease-out;transform:scale(1)}
+.action:hover{transform:scale(1.06)}.action:focus-visible{outline:3px solid #fff;outline-offset:5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.card{background:#151b25;border:1px solid #283241;border-radius:20px;padding:28px}
+.metric{display:flex;align-items:center;justify-content:space-between}.caption{color:#a7b4c5;font-size:13px}.value{font-size:44px;margin:14px 0 0;letter-spacing:-1px}.tag{background:#183b33;padding:8px 12px;border-radius:8px;color:#9fe8c8;font-size:12px}
+h2{font-size:16px;font-weight:500;margin:0 0 18px}.chart{width:100%;height:158px}
+.heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:18px}.heatmap span{height:23px;border-radius:5px;background:#283644}
+.heatmap span:nth-child(3n){background:#4b756f}.heatmap span:nth-child(4n){background:#94c5b7}.heatmap span:nth-child(7n){background:#c2f2db}
+footer{margin-top:25px;color:#66788c;font-size:11px;display:flex;justify-content:space-between}
+@media(max-width:650px){.shell{padding:22px}.hero{display:block}h1{font-size:39px}.action{margin-top:26px}.grid{grid-template-columns:1fr}nav{margin-bottom:42px}nav span{display:none}footer{display:block;line-height:1.8}}
+</style>
+<div class="shell">
+<nav aria-label="Demo navigation"><strong>FIELDNOTES</strong><span>Overview &nbsp;&nbsp; Activity &nbsp;&nbsp; Reports</span><span>Demo workspace</span></nav>
+<header class="hero"><div><div class="eyebrow">DESIGN SPEC / ORIGINAL TEST FIXTURE</div><h1>A clearer view of your work.</h1><p>A synthetic interface for testing visual evidence and annotations.</p></div><button class="action">Explore demo ↗</button></header>
+<main class="grid">
+<article class="card metric"><div><div class="caption">Completed tasks · demo data</div><p class="value">1,248</p></div><span class="tag">+12.8%</span></article>
+<article class="card metric"><div><div class="caption">Weekly focus · demo data</div><p class="value">32.5 <small style="font-size:20px;color:#8495a7">hrs</small></p></div><span class="tag">+4.2 hrs</span></article>
+<article class="card"><h2>Completion trend</h2><svg class="chart" viewBox="0 0 420 158" role="img" aria-label="Illustrative rising trend">
+<path d="M0 35H420M0 85H420M0 135H420" fill="none" stroke="#273342"/>
+<path d="M3 128L48 118L89 124L136 93L180 100L223 68L268 75L313 42L357 51L414 12" fill="none" stroke="#9cebd7" stroke-width="3"/>
+<circle cx="414" cy="12" r="5" fill="#d7fff1"/></svg><div class="caption">Week 1 <span style="float:right">Week 8</span></div></article>
+<article class="card"><h2>Daily activity</h2><div class="caption">30 days · illustrative values</div><div class="heatmap" role="img" aria-label="Calendar heatmap with thirty demo days">
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></article>
+</main><footer><span>Original demo asset. Not a live product or third-party screenshot.</span><span>DESIGN-SPEC / EVIDENCE FIXTURE</span></footer>
+</div></html>

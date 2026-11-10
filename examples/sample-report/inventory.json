@@ -1,0 +1,190 @@
+{
+  "version": "1.0",
+  "url": "http://127.0.0.1:8874/examples/fixture.html",
+  "inspected_at": "2026-11-10T11:52:10.031279+00:00",
+  "scope": "Five selected elements and one hover effect in the original synthetic fixture; not a full-site audit",
+  "annotation_status": "complete",
+  "evidence": [
+    {
+      "id": "S01",
+      "kind": "screenshot",
+      "path": "evidence/S01-original.jpg",
+      "annotated_path": "evidence/S01-annotated.png",
+      "marks_path": "evidence/S01-marks.json",
+      "viewport": "1440x900 CSS px; DPR 1",
+      "state": "Default overview",
+      "item_ids": [
+        "E01",
+        "E02",
+        "E03",
+        "E04",
+        "E05"
+      ]
+    },
+    {
+      "id": "S02",
+      "kind": "screenshot",
+      "path": "evidence/S01-original.jpg",
+      "annotated_path": "evidence/S02-annotated.png",
+      "marks_path": "evidence/S02-marks.json",
+      "viewport": "1440x900 CSS px; DPR 1",
+      "state": "Before pointer hover",
+      "item_ids": [
+        "M01"
+      ]
+    },
+    {
+      "id": "S03",
+      "kind": "screenshot",
+      "path": "evidence/S03-original.jpg",
+      "annotated_path": "evidence/S03-annotated.png",
+      "marks_path": "evidence/S03-marks.json",
+      "viewport": "1440x900 CSS px; DPR 1",
+      "state": "After pointer hover",
+      "item_ids": [
+        "M01"
+      ]
+    },
+    {
+      "id": "D01",
+      "kind": "css",
+      "path": "evidence/motion-style.json",
+      "state": "Button under pointer hover"
+    }
+  ],
+  "items": [
+    {
+      "id": "E01",
+      "name": "Pill-shaped navigation",
+      "name_local": "Pill-shaped navigation",
+      "location": "Top navigation",
+      "description": "Capsule-shaped navigation container.",
+      "category": "navigation",
+      "term_kind": "descriptive",
+      "status": "observed",
+      "evidence": [
+        "S01"
+      ],
+      "specs": {},
+      "motion": null
+    },
+    {
+      "id": "E02",
+      "name": "Metric card",
+      "name_local": "Metric card",
+      "location": "First dashboard card",
+      "description": "Prominent numeric value with contextual information.",
+      "category": "component",
+      "term_kind": "established",
+      "status": "observed",
+      "evidence": [
+        "S01"
+      ],
+      "specs": {},
+      "motion": null
+    },
+    {
+      "id": "E03",
+      "name": "Line chart",
+      "name_local": "Line chart",
+      "location": "Lower left card",
+      "description": "Connected points show a trend.",
+      "category": "data-visualization",
+      "term_kind": "established",
+      "status": "observed",
+      "evidence": [
+        "S01"
+      ],
+      "specs": {},
+      "motion": null
+    },
+    {
+      "id": "E04",
+      "name": "Calendar heatmap",
+      "name_local": "Calendar heatmap",
+      "location": "Lower right card",
+      "description": "Daily activity encoded through cell intensity.",
+      "category": "data-visualization",
+      "term_kind": "established",
+      "status": "observed",
+      "evidence": [
+        "S01"
+      ],
+      "specs": {},
+      "motion": null
+    },
+    {
+      "id": "E05",
+      "name": "Pill-shaped button",
+      "name_local": "Pill-shaped button",
+      "location": "Right side of hero",
+      "description": "Capsule-shaped action button.",
+      "category": "component",
+      "term_kind": "descriptive",
+      "status": "observed",
+      "evidence": [
+        "S01"
+      ],
+      "specs": {},
+      "motion": null
+    },
+    {
+      "id": "M01",
+      "name": "Scale transition",
+      "name_local": "Scale transition",
+      "location": "Hero button",
+      "description": "The button expands on pointer hover.",
+      "category": "motion",
+      "term_kind": "established",
+      "status": "observed",
+      "evidence": [
+        "S02",
+        "S03",
+        "D01"
+      ],
+      "specs": {},
+      "motion": {
+        "trigger": "pointer hover, reached by clicking a no-op demo button",
+        "behavior": "scale(1) to scale(1.06)",
+        "properties": [
+          "transform"
+        ],
+        "duration_ms": 240,
+        "duration_source": "Computed CSS transition, recorded in D01; declared duration, not measured effective playback",
+        "easing": "ease-out",
+        "repeat": "on pointer entry/exit",
+        "reduced_motion": "not tested"
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "route": "/examples/fixture.html",
+      "section": "Selected dashboard elements",
+      "viewport": "desktop",
+      "state": "default and hover",
+      "status": "inspected",
+      "evidence": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "notes": "Intentionally scoped example."
+    },
+    {
+      "route": "/examples/fixture.html",
+      "section": "Responsive and reduced-motion variants",
+      "viewport": "mobile",
+      "state": "not tested",
+      "status": "not-inspected",
+      "evidence": [],
+      "notes": "Outside the selected example scope."
+    }
+  ],
+  "limitations": [
+    "This is a scoped synthetic example, not a complete website audit.",
+    "Capture tool introduced text softness.",
+    "Mobile, keyboard focus and reduced motion are not included."
+  ],
+  "sources": []
+}

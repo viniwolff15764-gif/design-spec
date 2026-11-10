@@ -1,0 +1,6 @@
+interface:
+  display_name: "Design Spec"
+  short_description: "Visual design audits with names and marked screenshots"
+  default_prompt: "Use $design-spec to inspect this URL and deliver a complete visual and motion inventory with real technical names and numbered annotated screenshots."
+policy:
+  allow_implicit_invocation: true
