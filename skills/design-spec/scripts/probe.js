@@ -1,7 +1,7 @@
 (options = {}) => {
   const root = document.querySelector(options.selector || "body");
   if (!root) return { error: "Selector did not match the current DOM" };
-  const limit = Math.min(2000, Math.max(1, Number(options.limit) || 600));
+  const limit = Math.min(2000, Math.max(1, Number(options.limit) || 80));
   const properties = [
     "display", "position", "color", "backgroundColor", "backgroundImage",
     "fontFamily", "fontSize", "fontWeight", "fontStyle", "lineHeight",
@@ -23,16 +23,35 @@
   });
   const viewportWidth = typeof innerWidth === "number" ? innerWidth : document.documentElement.clientWidth;
   const viewportHeight = typeof innerHeight === "number" ? innerHeight : document.documentElement.clientHeight;
+  const styleCache = new WeakMap();
+  const hiddenCache = new WeakMap();
+  const styleOf = (el) => {
+    if (!styleCache.has(el)) styleCache.set(el, getComputedStyle(el));
+    return styleCache.get(el);
+  };
+  const hidden = (el) => {
+    if (!el) return false;
+    if (hiddenCache.has(el)) return hiddenCache.get(el);
+    const chain = [];
+    let cursor = el, result = false;
+    while (cursor && !hiddenCache.has(cursor)) {
+      chain.push(cursor);
+      const s = styleOf(cursor);
+      if (s.display === "none" || s.visibility === "hidden" ||
+          s.visibility === "collapse" || Number(s.opacity) === 0) {
+        result = true; break;
+      }
+      cursor = cursor.parentElement;
+    }
+    if (!result && cursor && hiddenCache.has(cursor)) result = hiddenCache.get(cursor);
+    for (const node of chain) hiddenCache.set(node, result);
+    return result;
+  };
   const visible = (el) => {
     const r = el.getBoundingClientRect();
     if (!r.width || !r.height || r.bottom <= 0 || r.right <= 0 ||
         r.top >= viewportHeight || r.left >= viewportWidth) return false;
-    for (let p = el; p; p = p.parentElement) {
-      const s = getComputedStyle(p);
-      if (s.display === "none" || s.visibility === "hidden" ||
-          s.visibility === "collapse" || Number(s.opacity) === 0) return false;
-    }
-    return true;
+    return !hidden(el);
   };
   const serialTime = (v) => {
     if (typeof v === "number") return Number.isFinite(v) ? v : String(v);
@@ -47,7 +66,7 @@
     if (visible(el)) {
       matched++;
       if (nodes.length < limit) {
-        const style = getComputedStyle(el);
+        const style = styleOf(el);
         const pseudos = {};
         for (const pseudo of ["::before", "::after"]) {
           const ps = getComputedStyle(el, pseudo);
@@ -80,7 +99,27 @@
         .filter(k => !["offset","computedOffset","easing","composite"].includes(k))))
     };
   });
+  // Lossless style dictionary: each node retains geometry and its own identity.
+  // compact:false returns the original expanded representation.
+  const styleTable = [];
+  if (options.compact !== false) {
+    const keys = new Map();
+    const intern = (style) => {
+      const key = JSON.stringify(style);
+      if (!keys.has(key)) { keys.set(key, styleTable.length); styleTable.push(style); }
+      return keys.get(key);
+    };
+    for (const node of nodes) {
+      node.styleRef = intern(node.styles);
+      delete node.styles;
+      for (const pseudo of Object.keys(node.pseudos)) {
+        node.pseudos[pseudo] = {styleRef: intern(node.pseudos[pseudo])};
+      }
+    }
+  }
   return {
+    format: options.compact === false ? "expanded" : "compact",
+    ...(options.compact === false ? {} : {styleTable}),
     viewport: {width: viewportWidth, height: viewportHeight,
       dpr: typeof devicePixelRatio === "number" ? devicePixelRatio : null,
       scrollX: typeof scrollX === "number" ? scrollX : null,

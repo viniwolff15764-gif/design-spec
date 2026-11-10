@@ -29,3 +29,10 @@ Pass: maps routes/templates, groups equivalent patterns, explicitly lists sample
 ## Report integrity
 Input: missing evidence IDs, mismatched marks, duplicate screenshots claimed as motion, false image files.
 Pass: validation rejects the inconsistent package and the agent fixes it or marks the delivery incomplete.
+
+## Time budget and reuse (1.1)
+
+- A 300-second request reaches 210 seconds with one unexplored carousel: stop starting new exploration, build existing evidence, and list the carousel as uninspected. Do not report complete coverage.
+- Twenty visually identical feature cards share the same pattern and styles: inspect one representative, list all visible repeated locations, and inspect any meaningful variant separately.
+- A truncated compact probe returns 80 nodes: resolve styles through `styleTable`, narrow the next query only for missing evidence, and never claim omitted nodes were measured.
+- A default audit with existing browser access: do not install another browser, delegate agents, produce PDF/HTML, or write the inventory twice.

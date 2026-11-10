@@ -3,6 +3,7 @@ import importlib.util
 import json
 from pathlib import Path
 import tempfile
+import sys
 import unittest
 from PIL import Image
 
@@ -15,6 +16,8 @@ def module(name,path):
 ann=module("annotate",ROOT/"skills/design-spec/scripts/annotate.py")
 val=module("validate",ROOT/"skills/design-spec/scripts/validate_report.py")
 ins=module("installer",ROOT/"install.py")
+sys.path.insert(0,str(ROOT/"skills/design-spec/scripts"))
+fin=module("finish",ROOT/"skills/design-spec/scripts/finish.py")
 
 class ToolsTest(unittest.TestCase):
     def setUp(self):
@@ -137,6 +140,53 @@ class ToolsTest(unittest.TestCase):
         ins.install([dest])
         self.assertTrue((dest/"references/output.md").is_file())
         ins.install([dest])
+
+    def save_inventory(self):
+        p=self.base/"inventory.json"
+        p.write_text(json.dumps(self.data))
+        return p
+
+    def test_finish_builds_annotations_and_report(self):
+        self.data["evidence"][0]["annotated_path"]="new-marked.png"
+        self.data["report_labels"]={"inventory":"Inventário e specs"}
+        result=fin.finish(self.save_inventory())
+        self.assertEqual(result["annotations_created"],1)
+        report=(self.base/"report.md").read_text()
+        self.assertIn("new-marked.png",report)
+        self.assertIn("Inventário e specs",report)
+        self.assertIn("E01",report)
+        self.assertEqual(val.validate(self.data,self.base),[])
+
+    def test_finish_preserves_existing_outputs(self):
+        p=self.save_inventory()
+        original=(self.base/"original.png").read_bytes()
+        marked=(self.base/"marked.png").read_bytes()
+        fin.finish(p)
+        report=(self.base/"report.md").read_bytes()
+        with self.assertRaises(ValueError):fin.finish(p)
+        self.assertEqual((self.base/"report.md").read_bytes(),report)
+        self.assertEqual((self.base/"original.png").read_bytes(),original)
+        self.assertEqual((self.base/"marked.png").read_bytes(),marked)
+
+    def test_finish_rejects_invalid_evidence(self):
+        self.data["items"][0]["evidence"]=["absent"]
+        with self.assertRaises(ValueError):fin.finish(self.save_inventory())
+        self.assertFalse((self.base/"report.md").exists())
+
+    def test_finish_rejects_output_escape(self):
+        with self.assertRaises(ValueError):fin.finish(self.save_inventory(),"../outside.md")
+        self.data["evidence"][0]["annotated_path"]="../outside.png"
+        with self.assertRaises(ValueError):fin.finish(self.save_inventory())
+
+    def test_finish_renders_specs_and_motion_without_table_breaks(self):
+        self.data["items"][0]["description"]="A | panel <script>"
+        self.data["items"][0]["specs"]={"radius":{"value":24,"unit":"px","status":"measured","source":"CSS | computed"}}
+        self.data["items"][0]["motion"]={"trigger":"hover","duration_ms":240}
+        result=fin.render(self.data)
+        self.assertIn("CSS &#124; computed",result)
+        self.assertIn("&lt;script&gt;",result)
+        self.assertIn("duration_ms: 240",result)
+        self.assertIn("radius",result)
 
     def test_destination_selection(self):
         paths=ins.destinations("all",self.base)

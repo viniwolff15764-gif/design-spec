@@ -2,6 +2,18 @@
 
 The user should be able to point at a screenshot and connect it to an exact name.
 
+## Build once
+
+Author `inventory.json` plus screenshot marks, then run:
+```sh
+python3 scripts/finish.py path/to/inventory.json
+```
+The builder creates missing annotations, validates evidence, and writes `report.md` from the inventory. It preserves existing images and refuses to overwrite a report; after revisions use `--report report-v2.md`. Read the images after generation. Do not manually duplicate the same inventory into Markdown.
+
+Optional `report_labels` supports translated title/section labels: `title`, `atlas`, `inventory`, `motion`, `coverage`, `limits`, `sources`. Names, descriptions and notes use the user's language as authored. Technical field names remain English.
+
+A time-limited audit may have complete annotations for inspected items while some scope remains uninspected. `annotation_status` describes images, not completeness of site coverage. State both independently. Add actual elapsed time and budget to scope/limitations when available; do not estimate cost as a fact.
+
 ## Human-readable report
 Use the user's language; retain English technical names as search terms.
 

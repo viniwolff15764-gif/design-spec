@@ -5,8 +5,8 @@ Use this as a coverage checklist, not a list of things to claim exist. Record ab
 ## Scope and collection
 - Record requested and final URL, timestamp with timezone, page title, browser/tool, actual viewport, zoom/scale if known, access level, locale and theme.
 - Map page sections and safe interactive controls before testing. Keep a ledger: route, section, viewport, state/trigger, status, evidence ID, reason.
-- Inspect all distinct visible page templates when a whole-site audit is requested. Use the navigation and sitemap when accessible; do not guess routes or crawl indefinitely.
-- Capture overlapping scroll positions. Revisit reveal animations from both directions where feasible. Sticky scenes can span several viewport heights.
+- Map all distinct visible page templates when a whole-site audit is requested; inspect within the active time budget and list the unvisited templates. Use the navigation and sitemap when accessible; do not guess routes or crawl indefinitely.
+- Capture each section during one scroll pass. Revisit only unresolved evidence. Sticky scenes can span several viewport heights and need intermediate positions.
 - Record mobile composition changes, reordered content, hidden/replaced elements, touch controls and responsive typography. Do not claim a breakpoint from only two samples.
 - When available, test a keyboard focus state and reduced-motion preference. Restore temporary emulation and theme changes. If unsupported, say so.
 - "Not observed in inspected states" is different from "not present anywhere."

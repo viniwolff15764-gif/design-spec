@@ -115,6 +115,19 @@ Inspect the entire public site, grouping repeated page templates.
 
 The default covers the supplied page, its sections and safely observable states at desktop and mobile sizes. A whole-site request expands to distinct accessible page templates with an explicit route ledger.
 
+## Fast by default
+
+Version 1.1 targets **five minutes per supplied page**, including delivery. It reuses captures, samples repeated components by variant, measures scoped DOM regions, and reserves the final 30% for annotations and reporting. `--deep` opts into extended coverage; `--budget 180` changes the time target. Host command parsing is unchanged: these options are instructions read by the agent.
+
+```text
+/design-spec https://example.com
+/design-spec https://example.com --deep
+```
+
+The evidence standards remain the same. A large or slow site may leave states uninspected; the report lists them. The time budget is a workflow target, not a hard timeout. No universal five-minute or monetary saving guarantee is claimed.
+
+The compact DOM probe preserved every collected style value while reducing serialized output by **85% in a repeated-style synthetic fixture** (71,742 → 10,982 bytes; not a token or billing measurement). The single-pass builder generated three marked images and a six-item report in **0.435 seconds on the development VPS**, excluding browser collection and model reasoning. [Reproduce the measurements](docs/performance.md).
+
 ## The evidence rules
 
 **No invented names.** Established terminology is distinguished from literal descriptions and uncertain classifications.
@@ -154,6 +167,7 @@ skills/design-spec/
 │   ├── output.md               Report and annotation contracts
 │   └── probe.md                Optional DOM inspection guide
 └── scripts/
+    ├── finish.py               Annotate, validate and render in one pass
     ├── annotate.py             Draw IDs on screenshot copies
     ├── probe.js                Read-only style/animation sampler
     └── validate_report.py      Check evidence and annotation links
@@ -167,6 +181,7 @@ The annotation helper needs `Pillow>=10.4`. If needed and permitted by the host,
 python3 -m pip install -r requirements-dev.txt
 python3 -m unittest discover -s tests -v
 python3 scripts/check_package.py
+node tests/probe_test.cjs
 ```
 
 Tests cover annotation bounds, original preservation, installation conflicts, evidence references and motion-frame requirements. CI runs these checks on Linux, macOS and Windows. Structural validation does not certify that an AI's design interpretation is correct.
