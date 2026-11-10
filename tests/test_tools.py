@@ -151,7 +151,7 @@ class ToolsTest(unittest.TestCase):
         self.data["report_labels"]={"inventory":"Inventário e specs"}
         result=fin.finish(self.save_inventory())
         self.assertEqual(result["annotations_created"],1)
-        report=(self.base/"report.md").read_text()
+        report=(self.base/"report.md").read_text(encoding="utf-8")
         self.assertIn("new-marked.png",report)
         self.assertIn("Inventário e specs",report)
         self.assertIn("E01",report)
