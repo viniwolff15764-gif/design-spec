@@ -136,7 +136,7 @@ This is an **instruction-based skill**, not a standalone crawler. The host agent
 - **Visual browser access:** required for a live audit.
 - **DOM/CSS access:** optional; improves measurement precision.
 - **File access:** needed for the full report folder.
-- **Python + Pillow:** needed only for the bundled image annotation helper.
+- **Python + Pillow:** needed for the bundled annotation and image-validation helpers.
 - **No browser or vision:** the agent reports the limitation and can work from supplied screenshots, with reduced scope.
 
 Native installation and command behavior are documented for Claude Code and Codex. Other agents can consume the open skill format or its Markdown instructions, but their tool capabilities and command syntax vary. This repository does not claim every agent/version has been tested.
